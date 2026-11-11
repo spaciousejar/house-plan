@@ -72,7 +72,7 @@
     <div class="stat"><span>Plot area</span><b>1,056 sq ft</b><em>117.3 sq yd · 98.1 m²</em></div>
     <div class="stat"><span>Footprint</span><b>806 sq ft</b><em>per floor · 2 ft clear on every side</em></div>
     <div class="stat"><span>Built-up</span><b>1,612 sq ft</b><em>two floors · 76% ground coverage</em></div>
-    <div class="stat"><span>Bedrooms</span><b>1 + 1</b><em>study, library, one open living space</em></div>
+    <div class="stat"><span>Layout</span><b>2 BHK</b><em>one bedroom each floor · study and library above</em></div>
     <div class="stat"><span>Clear height</span><b>8′-6″</b><em>9′-0″ floor to floor</em></div>
     <div class="stat"><span>Vaastu</span><b>Both floors</b><em>no toilet or kitchen in the north-east</em></div>
   </div>
@@ -108,8 +108,9 @@
         <tr><th>Element</th><th>Spec</th><th>Why this way</th></tr>
         <tr><td>Plan form</td><td>One full-width living dining room, then a 4′-8″ cased opening into the hall. No door leaf on the main line.</td><td>From the front door you see one space to the stair, not a corridor of doors.</td></tr>
         <tr><td>Floor to floor</td><td>9′-0″, with a 6 in slab, so 8′-6″ clear</td><td>Room for a fan and a shallow ceiling without losing headroom.</td></tr>
+        <tr><td>Structure</td><td>RCC frame, columns on the wall lines, beams under every slab edge, no load bearing walls</td><td>Walls can move, and the same columns can carry one more floor if the family grows.</td></tr>
         <tr><td>Openings</td><td>Windows 4′-0″ wide, sill 2′-6″, head 7′-0″, the same on both floors</td><td>One size to buy, one detail to build, and a regular rhythm on the facade.</td></tr>
-        <tr><td>Roof</td><td>Flat, with a 3′-0″ parapet and no tank tower</td><td>The first-floor terrace is the open sky above, so the section stays low.</td></tr>
+        <tr><td>Roof</td><td>Flat, 3′-0″ parapet. Terrace garden planters on the west edge, a solar array on stands near the stair head, and a plinth for the water tank behind the stair head</td><td>The terrace carries the garden and the panels instead of a tank tower, so the street face stays low.</td></tr>
         <tr><td>Services</td><td>Bath over bath, kitchen over kitchen, all drains in two stacks on the west wall</td><td>Two wet walls, two sets of pipes, and no duct cutting through a room.</td></tr>
         <tr><td>Finish</td><td>Exposed concrete frame outside, lime plaster inside, teak windows</td><td>Three materials, all of which age well without painting.</td></tr>
       </table>
@@ -140,7 +141,7 @@
       <h2>First floor · master bedroom, lounge, library, study</h2>
       <div id="planF"></div>
       <div id="schedF"></div>
-      <div class="note">The lounge sits over the living room, the library and dressing over the kitchen and utility, and the master bedroom over the ground bedroom, so every wall and drain line stacks. The lounge opens to the hall through the same 4′-8″ cased opening as the living room below it. The stair arrives at the same spot on both plans. The terrace is the tapered rear of the plot: open to sky, with the 4′ × 4′ telescope pad.</div>
+      <div class="note">The lounge sits over the living room, the library and dressing over the kitchen and utility, and the master bedroom over the ground bedroom, so every wall and drain line stacks. The lounge opens to the hall through the same 4′-8″ cased opening as the living room below it. The stair arrives at the same spot on both plans. The terrace is the tapered rear of the plot, open to sky. It now carries the terrace garden and the services: planters along the west edge and along the stair side, a solar array on stands near the stair head, and the water tank plinth behind the stair head, with the 4′ × 4′ telescope pad kept clear.</div>
     </div>
   </div>
 </main>
@@ -345,6 +346,24 @@ function clearDraw(){
   +tx(u0+0.95,v0+0.85,0.55,'CLEAR',ACC,'stroke="#fff" stroke-width="0.35" paint-order="stroke"');
 }
 
+function gardenDraw(){
+ const w=y=>28.221-(y-26.626)/11.756*25.16;   // terrace's slanted west edge
+ let s='';
+ const y0=27.3, y1=37.4;                      // planter strip hugging the west edge
+ const q=[[w(y0)-1.35,y0],[w(y0)-0.35,y0],[w(y1)-0.35,y1],[w(y1)-1.35,y1]].map(function(p){return M(p[0],p[1]);});
+ s+=poly('M '+q.map(function(p){return P(p[0])+' '+P(p[1]);}).join(' L ')+' Z','#e3ebe2','#8ea391',0.16,'stroke-dasharray="0.7 0.45"');
+ const a=M(6,26.95), b=M(13.5,27.95);         // planter along the stair-side edge
+ s+=rect(Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.abs(b[0]-a[0]),Math.abs(b[1]-a[1]),'#e3ebe2','#8ea391',0.16,'stroke-dasharray="0.7 0.45"');
+ const c=M(14,27.0), d=M(21.5,29.5);          // solar array provision, clear of the pad
+ const su=Math.min(c[0],d[0]), sv=Math.min(c[1],d[1]), sw=Math.abs(d[0]-c[0]), sh=Math.abs(d[1]-c[1]);
+ s+=rect(su,sv,sw,sh,'#f4f2e9','#5f6b64',0.18,'stroke-dasharray="0.6 0.45"');
+ for(let i=1;i<4;i++) s+=ln(su+sw*i/4,sv,su+sw*i/4,sv+sh,'#8a9490',0.1);
+ const halo='stroke="#fff" stroke-width="0.35" paint-order="stroke"';
+ s+=tx(su+sw/2,sv+sh/2+0.2,0.55,'SOLAR','#5f6b64',halo);
+ s+=tx(M(3.55,34.4)[0],M(3.55,34.4)[1],0.55,'PLANTER','#6b7a6a',halo);
+ return s;
+}
+
 function padDraw(){
  const q=[[fp[0][0],fp[0][1]],[fp[0][0]+fp[0][2],fp[0][1]],[fp[0][0]+fp[0][2],fp[0][1]+fp[0][3]],[fp[0][0],fp[0][1]+fp[0][3]]].map(function(p){return M(p[0],p[1]);});
  const u0=Math.min(q[0][0],q[2][0]), v0=Math.min(q[0][1],q[2][1]);
@@ -363,6 +382,7 @@ function planSVG(d){
   s+=rect(a[0],a[1],b[0]-a[0],b[1]-a[1],'none','#8a8577',0.12,'stroke-dasharray="0.5 0.4"');}
  s+=poly('M '+FOOT.map(function(p){const w=m(p[0],p[1]);return P(w[0])+' '+P(w[1]);}).join(' L ')+' Z',INK,1.0,'none');
  s+=d.stair(m);
+ if(d.kind==='F') s+=gardenDraw();
  s+=d.kind==='G'?frontSteps(m):'';
  if(d.kind==='F'&&PER){s+=clearDraw(); s+=padDraw();}
  for(const r of d.rooms){
