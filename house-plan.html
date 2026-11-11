@@ -5,42 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Two-Storey House · Site &amp; Floor Plans</title>
 <style>
-  :root{ --ink:#26312c; --acc:#b4522d; --paper:#f5f1e8; }
+  :root{ --ink:#1d2523; --ink2:#39443f; --mut:#72786e; --line:#e3dfd4; --line2:#cfc9b9;
+         --paper:#f2efe7; --card:#fdfbf6; --acc:#b4522d; }
   *{box-sizing:border-box}
-  body{margin:0; background:var(--paper); color:var(--ink); font:15px/1.55 system-ui, "Segoe UI", sans-serif;}
-  main{max-width:1150px; margin:0 auto; padding:28px 18px 60px;}
-  h1{font-family:Georgia, serif; font-size:30px; margin:.2em 0 .1em;}
-  .sub{color:#5c5a50; font-size:14.5px; margin-bottom:18px;}
-  .chips{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px;}
-  .chip{background:#fff; border:1px solid #e2dccd; border-radius:999px; padding:7px 14px; font-size:13.5px;}
-  .chip b{color:var(--acc); font-size:15px;}
-  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:18px;}
-  .card{background:#fff; border:1px solid #e2dccd; border-radius:14px; padding:18px 18px 20px; box-shadow:0 1px 3px rgba(0,0,0,.04);}
-  .card h2{margin:.1em 0 .4em; font-size:15px; letter-spacing:.09em; text-transform:uppercase; color:var(--acc);}
-  .card .note{font-size:12.5px; color:#6b6a60; margin-top:8px;}
-  svg{display:block; width:100%; height:auto; max-width:540px; margin:12px auto 4px;}
-  table{border-collapse:collapse; width:100%; font-size:13px; margin-top:6px;}
-  th,td{padding:4px 6px; border-bottom:1px solid #eee9dd; text-align:left; vertical-align:top;}
-  th{font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:#7a7466;}
-  td.n,th.n{text-align:right; white-space:nowrap;}
-  tr.total td{font-weight:700; color:var(--acc); border-top:2px solid #e7dfcd;}
-  footer{max-width:1150px; margin:14px auto 40px; padding:0 18px; font-size:12.5px; color:#6b6a60;}
-  @media print{ .cards{display:block} .card{break-inside:avoid; margin-bottom:14px} }
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font:15.5px/1.62 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; font-feature-settings:"kern","liga";}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 22px;}
+  header{background:var(--ink); color:#f4f1e8; padding:46px 0 40px; border-bottom:3px solid var(--acc);}
+  .eyebrow{font:600 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.16em;
+    text-transform:uppercase; color:#c8a288; margin-bottom:24px;}
+  h1{margin:0 0 14px; font-size:clamp(26px,4.1vw,44px); line-height:1.05; letter-spacing:-.022em;
+    font-weight:640; max-width:24ch;}
+  .sub{margin:0; max-width:80ch; color:#cdd2c9; font-size:14.5px;}
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(186px,1fr));
+    border-bottom:1px solid var(--line2); margin:0 0 36px;}
+  .stat{padding:22px 18px 20px; border-top:2px solid var(--ink);}
+  .stat+.stat{border-left:1px solid var(--line2);}
+  .stat span{display:block; font:600 10px/1 ui-monospace,monospace; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--mut); margin-bottom:9px;}
+  .stat b{display:block; font-size:21px; line-height:1.16; letter-spacing:-.02em; font-weight:620;
+    font-variant-numeric:tabular-nums;}
+  .stat em{display:block; margin-top:6px; font-style:normal; font-size:12px; color:var(--mut); line-height:1.5;}
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:20px;
+    counter-reset:s;}
+  .card{background:var(--card); border:1px solid var(--line2); padding:24px 24px 26px;
+    counter-increment:s;}
+  .card h2{margin:0 0 15px; font-size:15px; font-weight:620; letter-spacing:-.01em; line-height:1.35;}
+  .card h2::before{content:counter(s,decimal-leading-zero); font:600 10px/1 ui-monospace,monospace;
+    letter-spacing:.1em; color:var(--acc); margin-right:11px; vertical-align:1px;}
+  .card .note{font-size:12.5px; color:var(--mut); margin-top:14px; line-height:1.65;}
+  .card svg{display:block; width:100%; max-width:560px; height:auto; margin:16px auto 8px;}
+  table{border-collapse:collapse; width:100%; font-size:13px; margin-top:4px;}
+  th,td{padding:7px 8px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;}
+  th{font:600 10px/1.35 ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--mut); border-bottom:1px solid var(--line2); white-space:nowrap;}
+  td.n,th.n{text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums;}
+  tr.total td{font-weight:640; color:var(--acc); border-top:2px solid var(--line2);}
+  @media (max-width:560px){
+    .wrap{padding:0 16px;} .card{padding:20px 18px 22px;}
+    th{white-space:normal;} th,td{overflow-wrap:break-word;}
+    .stat{padding:18px 14px 16px;} .stat+.stat{border-left:0;}
+  }
+  footer{max-width:1120px; margin:12px auto 44px; padding:26px 22px 0; font-size:12.5px;
+    color:var(--mut); border-top:1px solid var(--line2); line-height:1.65;}
+  @media print{
+    body{background:#fff; font-size:10.5pt;}
+    header{background:#fff; color:#000; border-bottom:1px solid #000; padding:0 0 10px;}
+    .eyebrow{color:#666;} .sub{color:#333;}
+    .card{background:#fff; border:1px solid #bbb; padding:10px 12px; margin-bottom:10px; break-inside:avoid;}
+    .cards{display:block;} .stat{break-inside:avoid;}
+    @page{margin:14mm;}
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Two-Storey House · Site &amp; Floor Plans</h1>
-  <div class="sub">Irregular plot · East 32′ &nbsp;·&nbsp; South 28′ &nbsp;·&nbsp; West 32′ &nbsp;·&nbsp; North 41.5′ &nbsp;·&nbsp; diagonals 44.1′ and 51.7′ · road and main entrance on the East (32′) side · north up, road on the right.</div>
-  <div class="chips">
-    <span class="chip">PLOT AREA <b>≈ 1,056 sq ft</b> (117.3 sq yd · 98.1 m²)</span>
-    <span class="chip">FOOTPRINT <b>≈ 806 sq ft</b> per floor · 2 ft clear all round</span>
-    <span class="chip">BUILT-UP G+1 <b>≈ 1,612 sq ft</b></span>
-    <span class="chip">GROUND COVERAGE <b>76%</b></span>
-    <span class="chip"><b>1 + 1 BEDROOM</b> · study · full-width living dining</span>
-    <span class="chip">VAASTU <b>both floors</b></span>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Concept drawings · G+1 house · east-facing plot</div>
+    <h1>Two-Storey House · Site &amp; Floor Plans</h1>
+    <p class="sub">Irregular plot · East 32′ &nbsp;·&nbsp; South 28′ &nbsp;·&nbsp; West 32′ &nbsp;·&nbsp; North 41.5′ &nbsp;·&nbsp; diagonals 44.1′ and 51.7′ · road and main entrance on the East (32′) side · north up, road on the right.</p>
   </div>
-
+</header>
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><span>Plot area</span><b>1,056 sq ft</b><em>117.3 sq yd · 98.1 m²</em></div>
+    <div class="stat"><span>Footprint</span><b>806 sq ft</b><em>per floor · 2 ft clear on every side</em></div>
+    <div class="stat"><span>Built-up</span><b>1,612 sq ft</b><em>two floors · 76% ground coverage</em></div>
+    <div class="stat"><span>Bedrooms</span><b>1 + 1</b><em>study, library, one open living space</em></div>
+    <div class="stat"><span>Clear height</span><b>8′-6″</b><em>9′-0″ floor to floor</em></div>
+    <div class="stat"><span>Vaastu</span><b>Both floors</b><em>no toilet or kitchen in the north-east</em></div>
+  </div>
   <div class="cards">
     <div class="card" style="grid-column:1/-1">
       <h2>How the plot area was calculated</h2>
@@ -63,6 +98,24 @@
       <div class="note">North is up, so the road and the main entrance are on the right (East) side. The dashed red lines are the diagonals as measured: 44.1′ and 51.7′. The outline is drawn from the four sides with the 51.7′ diagonal exact, so the other diagonal shows 41.1′ on the drawing. The 2 ft strip inside the boundary stays clear on every side: no parking, no porch, and the built area is pushed to that line everywhere.</div>
     </div>
     <div class="card" style="grid-column:1/-1">
+      <h2>Front elevation · what the street sees from the east</h2>
+      <div id="elev"></div>
+      <div class="note">The street facade, drawn to the same scale as the plans. One window size on the whole job, four feet wide, with a single full-height slot over the entry. One flat canopy over the door; nothing else projects past the wall face, so the 2 ft setback stays clear on the ground.</div>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <h2>Modern spec · six decisions that set the character</h2>
+      <table>
+        <tr><th>Element</th><th>Spec</th><th>Why this way</th></tr>
+        <tr><td>Plan form</td><td>One full-width living dining room, then a 4′-8″ cased opening into the hall. No door leaf on the main line.</td><td>From the front door you see one space to the stair, not a corridor of doors.</td></tr>
+        <tr><td>Floor to floor</td><td>9′-0″, with a 6 in slab, so 8′-6″ clear</td><td>Room for a fan and a shallow ceiling without losing headroom.</td></tr>
+        <tr><td>Openings</td><td>Windows 4′-0″ wide, sill 2′-6″, head 7′-0″, the same on both floors</td><td>One size to buy, one detail to build, and a regular rhythm on the facade.</td></tr>
+        <tr><td>Roof</td><td>Flat, with a 3′-0″ parapet and no tank tower</td><td>The first-floor terrace is the open sky above, so the section stays low.</td></tr>
+        <tr><td>Services</td><td>Bath over bath, kitchen over kitchen, all drains in two stacks on the west wall</td><td>Two wet walls, two sets of pipes, and no duct cutting through a room.</td></tr>
+        <tr><td>Finish</td><td>Exposed concrete frame outside, lime plaster inside, teak windows</td><td>Three materials, all of which age well without painting.</td></tr>
+      </table>
+      
+    </div>
+    <div class="card" style="grid-column:1/-1">
       <h2>Vaastu placement, both floors</h2>
       <table>
         <tr><th>Zone</th><th>Room</th><th>Why it sits there</th></tr>
@@ -81,20 +134,20 @@
       <h2>Ground floor · 1 bedroom, living dining, kitchen, bath</h2>
       <div id="planG"></div>
       <div id="schedG"></div>
-      <div class="note">Entry at the road wall into the living dining room, which now runs the full width of the front band. The kitchen and utility are on the left, the stair hall straight ahead. The hall runs west to the bath and store, and the bedroom sits on the south wall with a door to the rear verandah. Numbers in the area column are measured from the drawn outline, so they differ slightly from width × depth wherever a slanted outer wall clips the room.</div>
+      <div class="note">Entry at the road wall into the living dining room, which runs the full width of the front band. The kitchen and utility are on the left. A 4′-8″ cased opening, not a door, leads into the hall, so the living room and the hall read as one space from the front door to the stair. The hall runs west to the bath and store, and the bedroom sits on the south wall with a door to the rear verandah. Numbers in the area column are measured from the drawn outline, so they differ slightly from width × depth wherever a slanted outer wall clips the room.</div>
     </div>
     <div class="card">
       <h2>First floor · master bedroom, lounge, library, study</h2>
       <div id="planF"></div>
       <div id="schedF"></div>
-      <div class="note">The lounge sits over the living room, the library and dressing over the kitchen and utility, and the master bedroom over the ground bedroom, so every wall and drain line stacks. The stair arrives at the same spot on both plans. The terrace is the tapered rear of the plot: open to sky, with the 4′ × 4′ telescope pad.</div>
+      <div class="note">The lounge sits over the living room, the library and dressing over the kitchen and utility, and the master bedroom over the ground bedroom, so every wall and drain line stacks. The lounge opens to the hall through the same 4′-8″ cased opening as the living room below it. The stair arrives at the same spot on both plans. The terrace is the tapered rear of the plot: open to sky, with the 4′ × 4′ telescope pad.</div>
     </div>
   </div>
 </main>
 <script>
 /* ---------- drawing kit ---------- */
 const PER=(typeof PERSONA!=='undefined')&&PERSONA;   // persona page adds the pad and the clear floor
-const INK='#26312c', ACC='#b4522d';
+const INK='#1d2523', WALL='#2b3733', ACC='#b4522d';
 const P=v=>+(Math.round(v*100)/100);
 const fi=v=>{const t=Math.round(v*12),f=Math.floor(t/12),i=t%12;return i?f+'′-'+i+'″':f+'′';};
 function rect(x,y,w,h,f,st,sw,xr){return '<rect x="'+P(x)+'" y="'+P(y)+'" width="'+P(w)+'" height="'+P(h)+'" fill="'+f+'" stroke="'+st+'" stroke-width="'+sw+'" '+(xr||'')+'/>';}
@@ -165,10 +218,10 @@ const ET=(x,y)=>[x,y];                               // edge-param helper for wi
 function stairFn(dir,z){const m=M;return function(){
  const a=m(z.x,z.y+z.h), b=m(z.x+z.w,z.y);
  const u0=a[0],v0=a[1],u1=b[0],v1=b[1];
- let s=rect(u0,v0,u1-u0,v1-v0,'#efe9dc','#3d4a42',0.26);
+ let s=rect(u0,v0,u1-u0,v1-v0,'#f4f1ea',WALL,0.26);
  for(let yy=z.y+0.7; yy<z.y+z.h; yy+=0.85){const u=42.6-yy; s+=ln(u,v0+0.1,u,v1-0.1,'#8a8577',0.11);}
  const vm=(v0+v1)/2;
- s+=ln(u0+0.4,vm,u1-0.4,vm,'#3d4a42',0.14,'stroke-dasharray="0.8 0.8"');
+ s+=ln(u0+0.4,vm,u1-0.4,vm,WALL,0.14,'stroke-dasharray="0.8 0.8"');
  const up=dir==='UP', ua=up?u0+0.7:u1-0.7, ub=up?u1-0.7:u0+0.7, va=v0+0.6, sg=up?1:-1;
  s+=ln(ua,va,ub,va,ACC,0.26,'stroke-dasharray="1 0.7"');
  s+=ln(ub,va,ub+sg*0.45,va-0.36,ACC,0.26)+ln(ub,va,ub+sg*0.45,va+0.36,ACC,0.26);
@@ -183,27 +236,27 @@ const frontSteps=function(m){
 
 /* ---------- room specs ---------- */
 const RG=[
- {n:'LIVING DINING',b:[2.056,19,2,13],c:'#f0e5c9'},
- {n:'KITCHEN',b:[19,29.862,2,12],c:'#e9d6cd'},
- {n:'UTILITY',b:[19,29.862,12,16],c:'#e6e0cf'},
- {n:'BEDROOM',b:[19,29.862,16,26.626],c:'#d9e6da'},
- {n:'STORE',b:[2.056,8,13,19],c:'#e3e0d2'},
- {n:'BATH',b:[2.056,8,19,26.626],c:'#d9e4ec'},
- {n:'HALL',b:[8,13,13,26.626],c:'#efe9dc'},
- {n:'STAIR',b:[13,19,13,26.626],c:'#e6e0cf',np:1,nl:1},
- {n:'VERANDAH',b:[2.056,29.862,26.626,38.382],c:'#efe9dc'}
+ {n:'LIVING DINING',b:[2.056,19,2,13],c:'#f7f1e4'},
+ {n:'KITCHEN',b:[19,29.862,2,12],c:'#f6eae5'},
+ {n:'UTILITY',b:[19,29.862,12,16],c:'#eeebe1'},
+ {n:'BEDROOM',b:[19,29.862,16,26.626],c:'#eaf0ea'},
+ {n:'STORE',b:[2.056,8,13,19],c:'#edeade'},
+ {n:'BATH',b:[2.056,8,19,26.626],c:'#e7eef1'},
+ {n:'HALL',b:[8,13,13,26.626],c:'#f4f1ea'},
+ {n:'STAIR',b:[13,19,13,26.626],c:'#eeebe1',np:1,nl:1},
+ {n:'VERANDAH',b:[2.056,29.862,26.626,38.382],c:'#f1eee6'}
 ];
 const RF=[
- {n:'STUDY',b:[2.056,8,2,13],c:'#f3e6cf'},
- {n:'LOUNGE',b:[8,19,2,13],c:'#f0e5c9'},
- {n:'LIBRARY',b:[19,29.862,2,12],c:'#e9d6cd'},
- {n:'DRESSING',b:[19,29.862,12,16],c:'#e6e0cf'},
- {n:'MASTER BEDROOM',b:[19,29.862,16,26.626],c:'#d9e6da'},
- {n:'STORE',b:[2.056,8,13,19],c:'#e3e0d2'},
- {n:'BATH',b:[2.056,8,19,26.626],c:'#d9e4ec'},
- {n:'HALL',b:[8,13,13,26.626],c:'#efe9dc'},
- {n:'STAIR',b:[13,19,13,26.626],c:'#e6e0cf',np:1,nl:1},
- {n:'TERRACE',b:[2.056,29.862,26.626,38.382],c:'#efe9dc'}
+ {n:'STUDY',b:[2.056,8,2,13],c:'#f7f1e4'},
+ {n:'LOUNGE',b:[8,19,2,13],c:'#f7f1e4'},
+ {n:'LIBRARY',b:[19,29.862,2,12],c:'#f6eae5'},
+ {n:'DRESSING',b:[19,29.862,12,16],c:'#eeebe1'},
+ {n:'MASTER BEDROOM',b:[19,29.862,16,26.626],c:'#eaf0ea'},
+ {n:'STORE',b:[2.056,8,13,19],c:'#edeade'},
+ {n:'BATH',b:[2.056,8,19,26.626],c:'#e7eef1'},
+ {n:'HALL',b:[8,13,13,26.626],c:'#f4f1ea'},
+ {n:'STAIR',b:[13,19,13,26.626],c:'#eeebe1',np:1,nl:1},
+ {n:'TERRACE',b:[2.056,29.862,26.626,38.382],c:'#f1eee6'}
 ];
 
 function build(spec){
@@ -225,14 +278,14 @@ function build(spec){
 
 /* ---------- doors and windows ---------- */
 const WINS_G=[
- [[11.5,2],[15.5,2]],                       // living, road wall
+ [[14.5,2],[18.5,2]],                       // living, road wall, clear of the entry door
  [[24,2],[27.5,2]],                         // kitchen, road wall
  [onEdge(3,(38.382-8)/36.382),onEdge(3,(38.382-5)/36.382)],   // living, north wall
  [onEdge(3,(38.382-23)/36.382),onEdge(3,(38.382-21)/36.382)], // bath, north wall
  [onEdge(1,(18-2)/24.626),onEdge(1,(24-2)/24.626)]            // bedroom, south wall
 ];
 const WINS_F=[
- [[11.5,2],[15.5,2]],
+ [[10.5,2],[14.5,2]],                       // slot window over the entry
  [[24,2],[27.5,2]],
  [onEdge(3,(38.382-8)/36.382),onEdge(3,(38.382-5)/36.382)],
  [onEdge(3,(38.382-23)/36.382),onEdge(3,(38.382-21)/36.382)],
@@ -242,7 +295,7 @@ const DG=[
  {h:[10.5,2],e:[13.5,2],into:[0,1]},
  {h:[19,4],e:[19,6.5],into:[1,0]},
  {h:[21,12],e:[23.5,12],into:[0,1]},
- {h:[9.5,13],e:[12.5,13],into:[0,1]},
+ {h:[8.3,13],e:[13,13],into:[0,1],o:1},     // open passage, living to hall
  {h:[15,13],e:[17.5,13],into:[0,1]},
  {h:[8,14],e:[8,16.5],into:[-1,0]},
  {h:[8,20],e:[8,22],into:[-1,0]},
@@ -256,7 +309,7 @@ const DF=[
  {h:[8,4],e:[8,6.5],into:[-1,0]},
  {h:[19,4],e:[19,6.5],into:[1,0]},
  {h:[21,12],e:[23.5,12],into:[0,1]},
- {h:[9.5,13],e:[12.5,13],into:[0,1]},
+ {h:[8.3,13],e:[13,13],into:[0,1],o:1},     // open passage, lounge to hall
  {h:[8,14],e:[8,16.5],into:[-1,0]},
  {h:[8,20],e:[8,22],into:[-1,0]},
  {h:[13,20],e:[13,22.5],into:[1,0]},
@@ -296,7 +349,7 @@ function padDraw(){
  const q=[[fp[0][0],fp[0][1]],[fp[0][0]+fp[0][2],fp[0][1]],[fp[0][0]+fp[0][2],fp[0][1]+fp[0][3]],[fp[0][0],fp[0][1]+fp[0][3]]].map(function(p){return M(p[0],p[1]);});
  const u0=Math.min(q[0][0],q[2][0]), v0=Math.min(q[0][1],q[2][1]);
  const u1=Math.max(q[0][0],q[2][0]), v1=Math.max(q[0][1],q[2][1]);
- return rect(u0,v0,u1-u0,v1-v0,'#f7f4ec','#3d4a42',0.22,'stroke-dasharray="0.6 0.45"')
+ return rect(u0,v0,u1-u0,v1-v0,'#f7f4ec',WALL,0.22,'stroke-dasharray="0.6 0.45"')
   +ln(u0,v0,u1,v1,'#8a8577',0.12)+ln(u1,v0,u0,v1,'#8a8577',0.12)
   +tx((u0+u1)/2,v0-0.45,0.6,'PAD 4′ × 4′','stroke="#fff" stroke-width="0.35" paint-order="stroke"');
 }
@@ -305,7 +358,7 @@ function padDraw(){
 function planSVG(d){
  const m=M;
  let s='<svg viewBox="3.0 3.0 43.6 32.1" xmlns="http://www.w3.org/2000/svg" style="max-width:540px">';
- for(const r of d.rooms) if(!r.np) s+=poly('M '+r.p.map(function(q){const w=m(q[0],q[1]);return P(w[0])+' '+P(w[1]);}).join(' L ')+' Z','#3d4a42',0.24,r.c);
+ for(const r of d.rooms) if(!r.np) s+=poly('M '+r.p.map(function(q){const w=m(q[0],q[1]);return P(w[0])+' '+P(w[1]);}).join(' L ')+' Z',WALL,0.24,r.c);
  for(const f of d.furn){const a=m(f[0],f[1]+f[3]), b=m(f[0]+f[2],f[1]);
   s+=rect(a[0],a[1],b[0]-a[0],b[1]-a[1],'none','#8a8577',0.12,'stroke-dasharray="0.5 0.4"');}
  s+=poly('M '+FOOT.map(function(p){const w=m(p[0],p[1]);return P(w[0])+' '+P(w[1]);}).join(' L ')+' Z',INK,1.0,'none');
@@ -325,14 +378,22 @@ function planSVG(d){
   const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
   s+=ln(a[0],a[1],b[0],b[1],'#fff',1.3);
   s+='<g transform="translate('+P(mx)+' '+P(my)+') rotate('+P(ang)+')">'
-   +rect(-L/2,-0.4,L,0.8,'#fff','#3d4a42',0.18)+ln(-L/2,0,L/2,0,'#8a9490',0.11)+'</g>';
+   +rect(-L/2,-0.4,L,0.8,'#fff',WALL,0.18)+ln(-L/2,0,L/2,0,'#8a9490',0.11)+'</g>';
  }
  for(const dr of d.doors){
   const dx=dr.e[0]-dr.h[0], dy=dr.e[1]-dr.h[1], i=dr.into;
-  const r=((-dy)*i[0]+dx*i[1])>0?[-dy,dx]:[dy,-dx];
   const L=Math.hypot(dx,dy);
+  const hs=m(dr.h[0],dr.h[1]), es=m(dr.e[0],dr.e[1]);
+  if(dr.o){                                   // cased opening: gap in the wall, no leaf
+   const nx=-dy/L*0.55, ny=dx/L*0.55;
+   s+=ln(hs[0],hs[1],es[0],es[1],'#fff',1.35);
+   s+=ln(hs[0]-nx,hs[1]-ny,hs[0]+nx,hs[1]+ny,WALL,0.2);
+   s+=ln(es[0]-nx,es[1]-ny,es[0]+nx,es[1]+ny,WALL,0.2);
+   continue;
+  }
+  const r=((-dy)*i[0]+dx*i[1])>0?[-dy,dx]:[dy,-dx];
   const op=[dr.h[0]+r[0],dr.h[1]+r[1]];
-  const hs=m(dr.h[0],dr.h[1]), es=m(dr.e[0],dr.e[1]), os=m(op[0],op[1]);
+  const os=m(op[0],op[1]);
   s+=ln(hs[0],hs[1],es[0],es[1],'#fff',1.3);
   s+=ln(hs[0],hs[1],os[0],os[1],INK,0.24);
   let a0=Math.atan2(os[1]-hs[1],os[0]-hs[0]), a1=Math.atan2(es[1]-hs[1],es[0]-hs[0]);
@@ -352,6 +413,39 @@ function planSVG(d){
 }
 const fiof=fi;
 
+/* ---------- front elevation ---------- */
+(function(){
+ const X0=2.056, X1=29.862, W=X1-X0;
+ const sx=x=>4+(x-X0), sy=h=>26-h;
+ const op=(a,b,h1,h2,f)=>rect(sx(a),sy(h2),b-a,h2-h1,f,WALL,0.14);
+ let s='<svg viewBox="0 0.6 35 31.4" xmlns="http://www.w3.org/2000/svg" style="max-width:740px">';
+ s+=rect(sx(X0),sy(21),W,21,'#f9f6ef',INK,0.24);
+ s+=rect(sx(X0),sy(18.5),W,2.5,'#ece6d7','#c9c2ae',0.12);          // parapet
+ s+=rect(sx(X0),sy(9),W,0.5,'#e4ddcc','none',0);                   // slab edges
+ s+=rect(sx(X0),sy(18),W,0.5,'#e4ddcc','none',0);
+ s+=op(10.5,13.5,0,7.2,'#39443f');                                 // entry recess
+ s+=ln(sx(12.6),sy(7.2),sx(12.6),sy(0),'#5f6b64',0.12);            // leaf and side light
+ s+=op(14.5,18.5,2.5,7.2,'#e9eff1')+ln(sx(16.5),sy(7.2),sx(16.5),sy(2.5),'#8a9490',0.11);
+ s+=op(24,27.5,2.5,7.2,'#e9eff1')+ln(sx(25.75),sy(7.2),sx(25.75),sy(2.5),'#8a9490',0.11);
+ s+=op(10.5,14.5,10.4,17.2,'#e9eff1')+ln(sx(12.5),sy(17.2),sx(12.5),sy(10.4),'#8a9490',0.11);
+ s+=op(24,27.5,11,17,'#e9eff1')+ln(sx(25.75),sy(17),sx(25.75),sy(11),'#8a9490',0.11);
+ s+=rect(sx(9.7),sy(9.55),4.6,0.55,'#ddd6c4',WALL,0.14);            // entry canopy
+ s+=ln(2.0,26,34,26,INK,0.5);
+ for(let x=2.4;x<33.8;x+=1.5) s+=ln(x,26,x-0.55,26.75,'#8a8577',0.1);
+ s+=ln(2.6,sy(0),2.6,sy(21),INK,0.14);
+ s+=ln(2.28,sy(0)+0.32,2.92,sy(0)-0.32,INK,0.14)+ln(2.28,sy(21)+0.32,2.92,sy(21)-0.32,INK,0.14);
+ s+=tx(1.5,15.5,0.95,fi(21),'','transform="rotate(-90 1.5 15.5)"');
+ s+=ln(sx(X0),27.6,sx(X1),27.6,INK,0.14);
+ s+=ln(sx(X0)-0.32,27.28,sx(X0)+0.32,27.92,INK,0.14)+ln(sx(X1)-0.32,27.28,sx(X1)+0.32,27.92,INK,0.14);
+ s+=tx((sx(X0)+sx(X1))/2,28.95,0.95,fi(W)+' front · road side');
+ s+=poly('M5.6 3.4 L4.2 4.0 L5.6 4.6 Z',INK,0,'#1d2523');
+ s+=tx(6.5,4.35,0.85,'N','#6b6a60');
+ s+=tx(32.9,13.4,0.8,'FIRST FLOOR','','transform="rotate(-90 32.9 13.4)"');
+ s+=tx(32.9,21.4,0.8,'GROUND FLOOR','','transform="rotate(-90 32.9 21.4)"');
+ s+='</svg>';
+ document.getElementById('elev').innerHTML=s;
+})();
+
 function sched(id,d){
  let s='<table><tr><th>Room</th><th>Clear size (ft)</th><th class="n">Area (sq ft)</th></tr>';
  let tot=0;
@@ -369,7 +463,7 @@ globalThis.PLAN={G:G,F:F,Q:Q,FOOT:FOOT,STAIRZ:STAIRZ,FP:fp,CLEAR:CLEAR,ar:ar,cli
  sumF:F.rooms.reduce(function(a,r){return a+r.a;},0),areaQ:ar(Q),areaF:ar(FOOT)};
 
 </script>
-<footer>
+<footer class="wrap">
   Concept drawings for a G+1 house of about 806 sq ft per floor (about 1,612 sq ft built up) on a plot of about 1,056 sq ft, with 2 ft kept clear of every boundary. Drawings are to scale in feet. Have the plot re-surveyed, and get the RCC and stair design from a structural engineer, before construction.
 </footer>
 </body>
